@@ -1,0 +1,10 @@
+name = "HW01"
+uuid = "ba60fa85-397c-4e77-ab27-0750d2cc5103"
+version = "0.1.0"
+authors = ["OriGonen <origonen1@gmail.com>"]
+
+[deps]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+Test = "1.11.0"
