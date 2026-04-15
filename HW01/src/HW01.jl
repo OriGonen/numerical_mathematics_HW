@@ -83,13 +83,53 @@ function interpoliraj(x, y)
     A[row, idx(n)+4] = 3*h
     row+=1
 
-
+    # a_i = y_i     |  i=1,...,n-1
     for i=1:(n-1)
-        h = x[i+1]-x[i]
         k=idx(i)
-
+        A[row, k+1] = 1
+        b[row] = y[i]
+        row+=1
     end
-        
+
+    # a_i + b_i*h_i + c_i*h_i^2 + d_i*h_i^3 = y_{i+1} | i=1,...,n-1
+    for i=1:(n-1)
+        k=idx(i)
+        h = x[i+1]-x[i]
+        A[row, k+1] = 1
+        A[row,k+2] = h
+        A[row,k+3] = h^2
+        A[row,k+4] = h^3
+        b[row] = y[i+1]
+        row+=1
+    end    
+
+    # b_i + 2*c_i*h_i + 3*d_i*h_i^2 - b_{i+1} = 0  | i=2,...,n-1
+    for i=2:(n-1)
+        k=idx(i)
+        h = x[i+1]-x[i]
+        A[row,k+2] = 1
+        A[row,k+3] = 2*h
+        A[row,k+4] = 3*h^2
+        A[row, idx(i+1)+2] = -1
+        row+=1
+    end
+
+
+    # c_i + 3*d_i*h_i - c_{i+1} = 0 | i=2,...,n-1
+    for i=2:(n-1)
+        k=idx(i)
+        h = x[i+1]-x[i]
+        A[row,k+3] = 1
+        A[row,k+4] = 3*h
+        A[row, idx(i+1)+3] = -1
+        row+=1
+    end
+
+    # solve the system
+    u = A \ b
+
+    return u # todo: instead return Zlepek object
+
     
 end
 
