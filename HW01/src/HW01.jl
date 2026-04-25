@@ -1,7 +1,7 @@
 module HW01
 using Plots
 
-greet() = print("Name: Ori Gonen")
+greet() = print("Name: Ori Gonen\n")
 
 # ---------------------------------
 #   cubic spline
@@ -73,10 +73,10 @@ function interpoliraj(x, y)
     idx(i) = 4*(i-1)
     """
     now:
-    a_i = u[idx(i)+1]
-    b_i = u[idx(i)+2]
-    c_i = u[idx(i)+3]
-    d_i = u[idx(i)+4]
+    a_i = coeffs_vec[idx(i)+1]
+    b_i = coeffs_vec[idx(i)+2]
+    c_i = coeffs_vec[idx(i)+3]
+    d_i = coeffs_vec[idx(i)+4]
     """
 
     # create the matrix (A) and column vector (b) as we described in the beginning
